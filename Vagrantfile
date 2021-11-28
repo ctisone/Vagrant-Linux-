@@ -20,11 +20,6 @@ Vagrant.configure("2") do |config|
   config.vm.box_check_update = false
   config.vm.boot_timeout = 300
   config.vm.guest = :linux
- 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,

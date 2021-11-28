@@ -28,7 +28,7 @@ To seamlessly use the virtual machine with Visual Studio code, a few more steps 
 <p align="center"><img src="Images/SSHStatusBar.png"></p>
 
 - When the SSH menu appears, click *Open SSH Configuration File...*
-- Select the SSH config file located in your user path (e.g. *C:\Users\<YourUserName>\.ssh\config*
+- Select the SSH config file located in your user path (e.g. *C:\Users\\{YourUserName}\\.ssh\\config*
 - When the SSH config file opens, paste the previously obtained SSH information into it
 - Edit the *IdentityFile* to point at the *VagrantKey* private key created in the prerequisites
 - On the first line that reads *Host default*, *default* is the current alias of the SSH host (in this case, the guest virtual machine) that Visual Studio Code uses to identify an SSH connection. Change this to something that specifically identifies this SSH host, as it is likely you will have multiple virtual machines in the future and you will need to be able to differentiate them.
@@ -40,9 +40,9 @@ When Visual Studio Code connects to the virtual machine for the first time, the 
 
 The virtual machine uses a series of synced folders to share data between the host and virtual machine.  The following synced folders are in effect:
 | Host Folder | Guest Folder | Comments |
-| ----------- | ----------- |-----------|
-| $VagrantDir | vagrant | The host folder containing the Vagrant file.  This is always shared by default. |
-| C:\GitProjects | /host/vagrant/GitProjects | This is the root folder for all Git projects
+| ----------- | ----------- | ----------- |
+| $VagrantDir | /vagrant | The host folder containing the Vagrant file.  This is always shared by default. |
+| C:\\GitProjects | /host/vagrant/GitProjects | This is the root folder for all Git projects
 
 ## Misc. Provisioning
 
@@ -65,3 +65,22 @@ Virtual machines created from this project are explicitly configured to support 
 | CMake | v3.16.3 | |
 
 The base box may by default support other environments (e.g. C, C++, Python 2, etc.), but those are not explicitly controlled by the provisioning process.
+
+## Revision History
+
+### ***V1.0.0***
+
+- Initial Release
+
+### ***V2.0.0***
+
+- Updated base box to Ubuntu 20.04 (Focal Fossa) 
+- Moved shared GitProjects folder from root level to home folder
+- Added provisioning logic to whitelist the host *VagrantKey* file in the virtual machine (The conventional approach of referring to the private key within virtual machine no longer appears to work)
+- Copied the host *gitconfig* file to the virtual machine
+- Installed additional software packages and locked all versions
+
+### ***V2.0.1***
+
+- Added Python PyInstaller package with additional packages needed for standalone executable deployments
+- Turn NTP time on to sync clocks with the host machine
